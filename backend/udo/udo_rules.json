@@ -1,0 +1,286 @@
+{
+  "_meta": {
+    "source": "Durham Unified Development Ordinance",
+    "last_amended_county": "2026-01-01",
+    "last_amended_city": "2026-03-01",
+    "udo_url": "https://udo.durhamnc.gov/udo/Home.htm",
+    "notes": "Extracted from UDO Sections 6.3, 6.4, 7.1, 13.5. Verify against official UDO before production use."
+  },
+  "residential_districts": {
+    "RS-20": {
+      "full_name": "Residential Suburban 20",
+      "tier": "suburban",
+      "conventional": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 20000,
+          "min_lot_width_ft": 100,
+          "street_yard_ft": 35,
+          "side_yard_ft": 12,
+          "rear_yard_ft": 25,
+          "max_density_per_acre": 2.0
+        }
+      },
+      "cluster": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 10000,
+          "min_lot_width_ft": 75,
+          "street_yard_ft": 25,
+          "side_yard_ft": 9,
+          "rear_yard_ft": 25
+        },
+        "min_site_area_acres": 2,
+        "min_open_space_pct": 15
+      },
+      "small_lot_option": false,
+      "max_height_stories": 3,
+      "max_height_ft": 40,
+      "allowed_housing_types": [
+        "single_family_detached",
+        "zero_lot_line",
+        "traditional_house",
+        "attached_house",
+        "duplex",
+        "townhouse_cluster_only",
+        "detached_rowhouse_cluster_only"
+      ]
+    },
+    "RS-10": {
+      "full_name": "Residential Suburban 10",
+      "tier": "suburban",
+      "conventional": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 10000,
+          "min_lot_width_ft": 75,
+          "street_yard_ft": 25,
+          "side_yard_ft": 10,
+          "rear_yard_ft": 25,
+          "max_density_per_acre": 4.0
+        }
+      },
+      "cluster": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 5000,
+          "min_lot_width_ft": 40,
+          "street_yard_ft": 20,
+          "side_yard_ft": 6,
+          "rear_yard_ft": 25
+        },
+        "min_site_area_acres": 2,
+        "min_open_space_pct": 15
+      },
+      "small_lot_option": true,
+      "max_height_stories": 3,
+      "max_height_ft": 40,
+      "allowed_housing_types": [
+        "single_family_detached",
+        "zero_lot_line",
+        "traditional_house",
+        "attached_house",
+        "duplex",
+        "townhouse_cluster_only",
+        "detached_rowhouse_cluster_only"
+      ]
+    },
+    "RS-8": {
+      "full_name": "Residential Suburban 8",
+      "tier": "suburban",
+      "conventional": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 8000,
+          "min_lot_width_ft": 60,
+          "street_yard_ft": 25,
+          "side_yard_ft": 9,
+          "rear_yard_ft": 25,
+          "max_density_per_acre": 5.0
+        }
+      },
+      "cluster": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 4000,
+          "min_lot_width_ft": 40,
+          "street_yard_ft": 20,
+          "side_yard_ft": 6,
+          "rear_yard_ft": 25
+        },
+        "min_site_area_acres": 2,
+        "min_open_space_pct": 15
+      },
+      "small_lot_option": true,
+      "max_height_stories": 3,
+      "max_height_ft": 40,
+      "allowed_housing_types": [
+        "single_family_detached",
+        "zero_lot_line",
+        "traditional_house",
+        "attached_house",
+        "duplex",
+        "townhouse_cluster_only",
+        "detached_rowhouse_cluster_only"
+      ]
+    },
+    "RS-M": {
+      "full_name": "Residential Suburban Mixed",
+      "tier": "suburban",
+      "conventional": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 5000,
+          "min_lot_width_ft": 35,
+          "street_yard_ft": 20,
+          "side_yard_ft": 5,
+          "rear_yard_ft": 25,
+          "max_density_per_acre": 8.0,
+          "max_density_per_acre_with_dev_plan": 12.0
+        }
+      },
+      "cluster": {
+        "notes": "See RS-M cluster specific rules"
+      },
+      "small_lot_option": true,
+      "max_height_stories": 3,
+      "max_height_ft": 40,
+      "allowed_housing_types": [
+        "single_family_detached",
+        "zero_lot_line",
+        "traditional_house",
+        "attached_house",
+        "duplex",
+        "townhouse",
+        "detached_rowhouse",
+        "multiplex",
+        "apartment"
+      ]
+    },
+    "RU-5": {
+      "full_name": "Residential Urban 5",
+      "tier": "urban",
+      "conventional": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 5000,
+          "min_lot_width_ft": 45,
+          "street_yard_ft": 20,
+          "side_yard_ft": 5,
+          "rear_yard_ft": 25
+        }
+      },
+      "cluster": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 3500,
+          "min_lot_width_ft": 40,
+          "street_yard_ft": 15,
+          "side_yard_ft": 5,
+          "rear_yard_ft": 25
+        }
+      },
+      "small_lot_option": true,
+      "max_height_stories": 3,
+      "max_height_ft": 40,
+      "allowed_housing_types": [
+        "single_family_detached",
+        "zero_lot_line",
+        "traditional_house",
+        "attached_house",
+        "duplex",
+        "townhouse",
+        "detached_rowhouse"
+      ]
+    },
+    "RU-5(2)": {
+      "full_name": "Residential Urban 5(2)",
+      "tier": "urban",
+      "conventional": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 5000,
+          "min_lot_width_ft": 45,
+          "street_yard_ft": 20,
+          "side_yard_ft": 5,
+          "rear_yard_ft": 25
+        }
+      },
+      "cluster": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 3500,
+          "min_lot_width_ft": 40,
+          "street_yard_ft": 15,
+          "side_yard_ft": 5,
+          "rear_yard_ft": 25
+        }
+      },
+      "small_lot_option": true,
+      "max_height_stories": 3,
+      "max_height_ft": 40,
+      "allowed_housing_types": [
+        "single_family_detached",
+        "zero_lot_line",
+        "traditional_house",
+        "attached_house",
+        "duplex",
+        "townhouse",
+        "detached_rowhouse"
+      ]
+    },
+    "RU-M": {
+      "full_name": "Residential Urban Mixed",
+      "tier": "urban",
+      "conventional": {
+        "single_family_detached": {
+          "min_lot_area_sqft": 3500,
+          "min_lot_width_ft": 35,
+          "street_yard_ft": 15,
+          "side_yard_ft": 5,
+          "rear_yard_ft": 25
+        }
+      },
+      "small_lot_option": true,
+      "max_height_stories": 3,
+      "max_height_ft": 40,
+      "allowed_housing_types": [
+        "single_family_detached",
+        "zero_lot_line",
+        "traditional_house",
+        "attached_house",
+        "duplex",
+        "townhouse",
+        "detached_rowhouse",
+        "multiplex",
+        "apartment"
+      ]
+    }
+  },
+  "small_lot_option": {
+    "applicable_districts_any_tier": ["RC", "RS-M", "RU-M", "RU-5", "RU-5(2)"],
+    "applicable_districts_urban_tier_only": ["RS-8", "RS-10"],
+    "not_allowed": ["RS-20"],
+    "min_lot_area_sqft": 2000,
+    "min_lot_width_ft": 25,
+    "street_yard_ft": 10,
+    "side_yard_ft": 5,
+    "rear_yard_ft": 15,
+    "max_density_per_acre": 12.0,
+    "max_building_footprint_sqft": 800,
+    "max_building_total_sqft": 1200,
+    "max_height_ft": 25,
+    "notes": "Not allowed in RS-20. RS-8 and RS-10 only in Urban Tier. Max 800sf footprint, 1200sf total, 25ft height."
+  },
+  "flag_lot": {
+    "min_pole_width_ft": 20,
+    "proposed_reduced_pole_width_ft": 12,
+    "proposed_reduced_applies_to": "Urban Tier and RU-zoned lots in Suburban Tier",
+    "front_setback_equals": "side_yard_setback_of_district",
+    "constraints": [
+      "Both resulting lots must meet district dimensional standards",
+      "Cannot make parent lot nonconforming",
+      "Side lot lines must intersect rights-of-way between 60 and 90 degrees"
+    ]
+  },
+  "lot_averaging": {
+    "max_reduction_pct": 15,
+    "constraint": "Average lot area in subdivision must meet or exceed minimum",
+    "density_constraint": "Overall density cannot exceed district maximum"
+  },
+  "general_lot_standards": {
+    "access_requirement": "Every buildable lot must abut a public street, private street, or allowed driveway",
+    "side_lot_line_angle_min_deg": 60,
+    "side_lot_line_angle_max_deg": 90,
+    "no_existing_structure_violation": true
+  }
+}

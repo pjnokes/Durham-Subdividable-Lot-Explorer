@@ -1,0 +1,12 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir psycopg2-binary requests
+
+COPY backend/ingestion/fetch_listings.py /app/backend/ingestion/fetch_listings.py
+
+COPY scripts/cron_listings.sh /app/cron_listings.sh
+RUN chmod +x /app/cron_listings.sh
+
+CMD ["/app/cron_listings.sh"]

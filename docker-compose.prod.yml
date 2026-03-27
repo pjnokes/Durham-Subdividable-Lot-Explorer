@@ -1,0 +1,62 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-durham_lots}
+      POSTGRES_USER: ${POSTGRES_USER:-durham}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env.prod}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/01_init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-durham} -d ${POSTGRES_DB:-durham_lots}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    # Tuned for 4 GB RAM Lightsail instance
+    command: >
+      postgres
+        -c shared_buffers=512MB
+        -c effective_cache_size=2GB
+        -c work_mem=16MB
+        -c maintenance_work_mem=128MB
+        -c random_page_cost=1.1
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      DURHAM_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-durham}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-durham_lots}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  listings-cron:
+    build:
+      context: .
+      dockerfile: Dockerfile.cron
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-durham}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-durham_lots}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pgdata:

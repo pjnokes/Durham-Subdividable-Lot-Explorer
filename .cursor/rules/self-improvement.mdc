@@ -1,0 +1,22 @@
+---
+description: Reminder to document findings and gotchas as cursor rules
+alwaysApply: true
+---
+
+# Self-Improvement Protocol
+
+After completing each major task or hitting a gotcha, create or update cursor rules in `.cursor/rules/` to help future sessions.
+
+## When to Create/Update Rules
+- Hit an unexpected API behavior or data format issue
+- Discovered a Durham-specific data quirk (missing fields, weird zoning codes, geometry issues)
+- Found a library configuration that was non-obvious (GDAL, PostGIS, deck.gl, etc.)
+- Identified a performance optimization that matters
+- Found a UDO rule edge case not captured in `udo_rules.json`
+
+## Rule File Naming
+- `gotcha-{topic}.mdc` for specific issues (e.g., `gotcha-arcgis-pagination.mdc`)
+- Update existing rules when adding to a known topic
+
+## Format
+Keep rules concise (<50 lines), with concrete examples of what went wrong and how to fix it.

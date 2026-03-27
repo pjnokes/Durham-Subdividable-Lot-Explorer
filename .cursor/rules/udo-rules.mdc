@@ -1,0 +1,43 @@
+---
+description: Durham UDO zoning rules - critical accuracy requirements
+globs: "backend/udo/**,backend/analysis/**"
+alwaysApply: false
+---
+
+# UDO Rules — Accuracy Critical
+
+## Source of Truth
+`backend/udo/udo_rules.json` contains hand-verified rules from the Durham UDO. NEVER guess at zoning values. If a rule seems wrong, verify at `https://udo.durhamnc.gov/udo/`.
+
+## Common Gotchas
+
+### Small Lot Tier Restrictions
+- RS-8 and RS-10 small lot option is ONLY available in the **Urban Tier**, not county-wide
+- RS-20 NEVER allows small lot option
+- RC, RS-M, RU-M, RU-5, RU-5(2) allow small lot in ANY tier
+
+### Compound Zoning Codes
+Parcel data may contain compound codes like `RS-10/PDR`, `RU-5 CU`, `RS-M OL`. Strip overlays to extract the base residential zone. Common suffixes to strip: `/PDR`, `CU`, `OL`, `HP`, `NP`.
+
+### Flag Lot Rules
+- Min pole width: 20 ft (proposed reduction to 12 ft not yet adopted)
+- The front setback of the flag lot equals the **side yard** setback of the district
+- Both resulting lots must independently meet ALL dimensional standards
+- Cannot make the parent (front) lot nonconforming
+
+### Lot Averaging
+- Max 15% reduction in individual lot area
+- Average across ALL lots in the subdivision must still meet minimum
+- Does NOT allow exceeding max density
+
+## Key Numbers to Memorize
+| District | Conventional Min Lot | Small Lot Min |
+|----------|---------------------|---------------|
+| RS-20    | 20,000 sf           | N/A           |
+| RS-10    | 10,000 sf           | 2,000 sf*     |
+| RS-8     | 8,000 sf            | 2,000 sf*     |
+| RS-M     | 5,000 sf            | 2,000 sf      |
+| RU-5     | 5,000 sf            | 2,000 sf      |
+| RU-M     | 3,500 sf            | 2,000 sf      |
+
+*Urban Tier only

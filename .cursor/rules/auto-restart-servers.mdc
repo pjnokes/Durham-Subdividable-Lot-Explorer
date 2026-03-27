@@ -1,0 +1,42 @@
+---
+description: Auto-restart backend server and open browser when backend changes are made
+alwaysApply: true
+---
+
+# Auto-Restart Servers on Backend Changes
+
+When making changes that require a server restart (new API endpoints, model changes, config changes, etc.), **do it automatically** — don't just tell the user to restart.
+
+## When to Restart
+
+- New or modified API routes / endpoints
+- Changes to FastAPI app setup (`main.py`), middleware, or lifespan
+- Database model or migration changes
+- Changes to `config.py` or environment handling
+- Any change under `backend/` that affects runtime behavior
+
+## How to Restart
+
+1. Check terminals for a running uvicorn process (look for `uvicorn` in terminal files)
+2. Kill the existing process if running
+3. Restart with:
+   ```bash
+   source .venv/Scripts/activate && python -u -m uvicorn backend.main:app --port 8000 --host 0.0.0.0
+   ```
+4. Background the command (`block_until_ms: 0`) and poll the terminal to confirm startup
+
+## When to Open the Browser
+
+If the frontend dev server is started on a new port, or if the user doesn't already have a browser tab open, open it:
+
+```
+http://localhost:5173
+```
+
+Use the `browser-use` subagent or the browser MCP tool to open the URL so the user sees the latest version immediately.
+
+## Key Ports
+
+- **Backend API**: `http://localhost:8000` (uvicorn)
+- **Frontend dev**: `http://localhost:5173` (vite)
+- **Database**: `localhost:5432` (postgres via Docker)

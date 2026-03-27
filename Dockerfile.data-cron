@@ -1,0 +1,21 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgeos-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir \
+    psycopg2-binary \
+    requests \
+    shapely \
+    tqdm \
+    numpy
+
+COPY backend/ /app/backend/
+COPY scripts/run_analysis.py /app/scripts/run_analysis.py
+COPY scripts/cron_data.sh /app/cron_data.sh
+RUN chmod +x /app/cron_data.sh
+
+CMD ["/app/cron_data.sh"]

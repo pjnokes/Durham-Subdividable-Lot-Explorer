@@ -1,0 +1,34 @@
+---
+description: Data source registry and refresh schedule — reference when adding, modifying, or debugging ingestion pipelines
+alwaysApply: true
+---
+
+# Data Sources & Refresh Schedule
+
+Full documentation lives in `DATA_SOURCES.md`. This rule is the quick-reference for AI sessions.
+
+## Dataset Registry
+
+| Dataset | Script | Table | Refresh | Automated? |
+|---------|--------|-------|---------|------------|
+| Tax parcels | `backend/ingestion/fetch_parcels.py` | `parcels` | Monthly | `data-cron` |
+| Zoning districts | `backend/ingestion/fetch_zoning.py` | `zoning_districts` | Monthly | `data-cron` |
+| Building footprints | `backend/ingestion/fetch_buildings.py` | `building_footprints` | Yearly/manual | No |
+| Synthetic footprints | `backend/ingestion/generate_synthetic_footprints.py` | `building_footprints` | After parcel refresh | `data-cron` |
+| Street centerlines | `backend/ingestion/fetch_streets.py` | `street_centerlines`, `street_buffers` | Quarterly | No |
+| Utility layers | `backend/ingestion/fetch_utilities.py` | `utility_lines` | Monthly | `data-cron` |
+| Redfin listings | `backend/ingestion/fetch_listings.py` | `redfin_listings` | Daily | `listings-cron` |
+| UDO rules | `backend/udo/udo_rules.json` | N/A (file) | On amendment | No |
+
+## Cron Services (docker-compose.yml)
+
+- **`listings-cron`** — Redfin every 24h (`scripts/cron_listings.sh`, `Dockerfile.cron`)
+- **`data-cron`** — Parcels + zoning + utilities + synthetic footprints + re-analysis monthly (`scripts/cron_data.sh`, `Dockerfile.data-cron`)
+
+## When Adding a New Data Source
+
+1. Create `backend/ingestion/fetch_{name}.py` following existing patterns (paginated fetch, PostGIS insert)
+2. Add `CREATE TABLE` to `scripts/init_db.sql`
+3. Add entry to the table above in THIS rule file AND in `DATA_SOURCES.md`
+4. If automated: add to `scripts/cron_data.sh` and rebuild `data-cron` container
+5. If it affects subdivision eligibility: ensure `scripts/run_analysis.py` re-runs after refresh

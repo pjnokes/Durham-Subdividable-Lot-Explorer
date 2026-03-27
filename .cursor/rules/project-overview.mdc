@@ -1,0 +1,50 @@
+---
+description: Core project context and conventions for Durham Subdividable Lots Finder
+alwaysApply: true
+---
+
+# Durham Subdividable Lots Finder
+
+## What This Project Does
+Analyzes every residential lot in Durham, NC to find lots that can be legally subdivided under the UDO (Unified Development Ordinance). Shows results on an interactive map with proposed lot lines and structure footprints.
+
+## Key References
+- `PROJECT_PLAN.md` — Full architecture, data sources, UDO rules, tech stack
+- `IMPLEMENTATION_GUIDE.md` — 11 ordered tasks with acceptance criteria for autonomous execution
+- `DATA_SOURCES.md` — All datasets, source URLs, refresh schedules, cron architecture
+- `backend/udo/udo_rules.json` — All residential zoning dimensional standards (hand-verified from UDO)
+
+## Tech Stack
+- **Python 3.11** — use `py -3.11` for all Python commands (Windows)
+- **FastAPI** — backend REST API
+- **PostgreSQL 16 + PostGIS 3.4** — via Docker Compose
+- **Shapely + GeoPandas** — geometry engine
+- **React + TypeScript + Vite** — frontend
+- **deck.gl + MapLibre GL JS** — map rendering (NO Mapbox, NO API keys)
+- **Tailwind CSS** — styling
+
+## Critical Rules
+1. **UDO accuracy is paramount.** Always verify zoning rules against `backend/udo/udo_rules.json`. When in doubt, fetch the UDO page: `https://udo.durhamnc.gov/udo/{section}.htm`
+2. **Maximize lot count.** More lots per subdivision = more money. Try small lot option first (2,000 sf min), then standard, then flag lot.
+3. **Small lot limits:** 800 sf max footprint, 1,200 sf max total, 25 ft max height.
+4. **Standard structure:** 600 sf footprint (1,200 sf total as 2-story duplex).
+5. **Python 3.11** — always use `py -3.11` not `python` or `python3`.
+
+## Current Status
+All 11 implementation tasks complete + refinements. See `CURRENT_STATUS.md` for full details.
+
+- **21,501** subdividable parcels, **4,965** with full geometric analysis + proposed lot geometry
+- Parallel batch processor: 8 workers, ~370 parcels/min (~45 min for all)
+- Flag lot width validation: 20ft pole + min district width required
+- Owner exclusions: City of Durham, Durham Public Schools, Durham County, State/Federal govt
+- Land class filter: only residential (RES/, VAC RES/) parcels qualify
+
+**Known patterns:**
+- Windows background processes often report `exit_code: unknown` — use long `block_until_ms` or `nohup` and monitor via DB queries
+- Batch processor workers receive only parcel IDs (no WKB serialization between processes)
+- FlagLotResult fields: `success`, `front_lot`, `rear_lot`, `pole`, `front_area_sqft`, `rear_area_sqft`, `front_structure`, `rear_structure`
+
+## Subagent Workflow
+When executing tasks, use subagents to keep context fresh. Each task in `IMPLEMENTATION_GUIDE.md` is self-contained. After completing a task:
+1. **Git commit** with a descriptive conventional commit message (see the `**Git:**` line at the end of each task)
+2. **Create/update cursor rules** in `.cursor/rules/` for any gotchas or findings that would help future sessions

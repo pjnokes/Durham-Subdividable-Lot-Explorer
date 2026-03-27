@@ -1,0 +1,37 @@
+---
+description: Git commit discipline and conventions
+alwaysApply: true
+---
+
+# Git Conventions
+
+## Commit After Changes
+
+Commit frequently — after each logical unit of work, not in giant batches. Do not let unrelated changes accumulate across dozens of files.
+
+## Atomic Commits
+
+Each commit should be a single logical concern:
+- **One feature, one commit** — don't mix DB schema, frontend, and backend in one commit.
+- **One fix, one commit** — don't bundle a bug fix with a new feature.
+
+## Commit Message Format
+
+Use conventional commits with a scope when applicable:
+
+```
+feat(analysis): add street access validation using real ROW data
+fix(frontend): correct address display fallback for missing site address
+chore(deploy): add production Dockerfiles and compose config
+docs: add validation rubric and work log
+```
+
+- First line: imperative mood, explains *why* not just *what*.
+- Body (if needed): context, trade-offs, or references to UDO sections.
+
+## What NOT to Do
+
+- Don't accumulate 20+ modified files across unrelated concerns.
+- Don't write vague messages like "update files" or "fix stuff".
+- Don't mix code changes with documentation in the same commit unless tightly coupled.
+- Don't use made-up values in code and commit without documenting the source. If a number comes from the UDO, cite it. If it's a practical assumption, say so.

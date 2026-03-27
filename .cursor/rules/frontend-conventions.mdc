@@ -1,0 +1,36 @@
+---
+description: Frontend conventions for the map UI
+globs: "frontend/**"
+alwaysApply: false
+---
+
+# Frontend Conventions
+
+## Map Stack
+- **deck.gl** — GPU-accelerated data visualization layers (GeoJsonLayer, PolygonLayer)
+- **MapLibre GL JS** — base map renderer (NOT Mapbox — no API key needed)
+- **react-map-gl** — React wrapper for MapLibre
+- Free base map tiles: `https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json` (dark mode)
+
+## Design
+- Dark mode UI (slick, modern look)
+- Tailwind CSS for styling
+- Smooth transitions, loading skeletons
+- Desktop-first (tablet secondary)
+
+## Map Colors
+| Classification | Color | Hex |
+|----------------|-------|-----|
+| SUBDIVIDABLE_MULTIPLE (3+ lots) | Bright green | #22c55e |
+| SUBDIVIDABLE_STANDARD (2 lots) | Green | #4ade80 |
+| SUBDIVIDABLE_SMALL_LOT | Teal | #2dd4bf |
+| NEEDS_GEOMETRY | Yellow | #facc15 |
+| AT_MINIMUM / TOO_SMALL | Light gray | #e5e7eb20 |
+| Proposed lot lines | Blue dashed | #3b82f6 |
+| Proposed structures | Orange | #f97316 |
+| Existing buildings | Dark gray | #6b7280 |
+
+## Performance
+- deck.gl handles 120k+ polygons at 60fps via GPU
+- Fetch parcels by viewport bbox (debounced on map move)
+- Don't load all 120k parcels at once — use spatial filtering via API

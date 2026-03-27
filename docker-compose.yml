@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: durham_lots
+      POSTGRES_USER: durham
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/01_init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U durham -d durham_lots"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend-net
+
+  listings-cron:
+    build:
+      context: .
+      dockerfile: Dockerfile.cron
+    environment:
+      DATABASE_URL: postgresql://durham:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/durham_lots
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - backend-net
+
+  data-cron:
+    build:
+      context: .
+      dockerfile: Dockerfile.data-cron
+    environment:
+      DATABASE_URL: postgresql://durham:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/durham_lots
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - backend-net
+
+volumes:
+  pgdata:
+
+networks:
+  backend-net:
+    driver: bridge

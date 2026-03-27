@@ -1,0 +1,31 @@
+---
+description: Python conventions for this project
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Python Conventions
+
+## Runtime
+- Use `py -3.11` for all commands (Windows environment)
+- Virtual env: `py -3.11 -m venv .venv` then `.venv\Scripts\activate`
+- Install deps: `pip install -r requirements.txt`
+
+## Database
+- Async: `sqlalchemy[asyncio]` + `asyncpg` for FastAPI endpoints
+- Sync: `psycopg2-binary` for ingestion scripts and batch processing
+- Connection string: read from `DATABASE_URL` env var (loaded via `dotenv` from `.env`)
+
+## Geospatial
+- Always store geometry in TWO SRIDs:
+  - `geom` — EPSG:4326 (WGS84) for display/API
+  - `geom_stateplane` — EPSG:2264 (NC State Plane, feet) for area/distance calculations
+- Use `ST_GeomFromGeoJSON()` for inserting GeoJSON geometries
+- Use `ST_Transform(geom, 2264)` when converting from 4326 to state plane
+- Area calculations MUST use state plane geometry (units are feet)
+
+## ArcGIS API Pagination
+- Max 2000 records per request
+- Use `resultOffset` + `resultRecordCount` params
+- Always get total count first with `returnCountOnly=true`
+- Add 0.5s delay between requests to avoid throttling

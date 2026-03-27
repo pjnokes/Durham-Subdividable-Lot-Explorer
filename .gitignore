@@ -1,0 +1,46 @@
+# Data cache
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# Environment
+.env
+.env.local
+.env.prod
+
+# Database dumps
+*.sql.gz
+durham_lots_dump.sql
+durham_lots_dump.custom
+
+# Deployment secrets (server IPs, SSH key paths)
+.cursor/rules/production-deploy.mdc
+PRODUCTION.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.env.local
+
+# Docker
+*.log

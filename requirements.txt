@@ -1,0 +1,35 @@
+# Core
+fastapi
+uvicorn[standard]
+sqlalchemy[asyncio]
+geoalchemy2
+asyncpg
+psycopg2-binary
+pydantic
+pydantic-settings
+alembic
+
+# Geospatial
+shapely
+geopandas
+fiona
+pyproj
+gdal
+
+# Data ingestion
+requests
+httpx
+aiohttp
+
+# UDO parsing
+beautifulsoup4
+lxml
+
+# Analysis
+numpy
+scipy
+
+# Utilities
+python-dotenv
+tqdm
+orjson
